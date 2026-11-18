@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090b10"><meta name="description" content="Clip — AI-powered video highlights and short-form clipping workspace.">
+  <title>Clip — AI Video Clipper</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">C</span><span>clip<span class="brand-dot">.</span></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav><a class="nav-item active" href="#studio">▣ <span>Studio</span></a><a class="nav-item" href="#clips">◫ <span>My clips</span></a><a class="nav-item" href="#live">◉ <span>Live clipping</span><em class="soon">BETA</em></a></nav>
+      <div class="sidebar-bottom"><div class="plan-card"><span class="plan-icon">✦</span><strong>Clip workspace</strong><p>Your highlights, all in one place.</p></div><div class="profile"><div class="avatar">C</div><div><strong>Creator</strong><small>Free workspace</small></div><span class="dots">•••</span></div></div>
+    </aside>
+    <main class="main" id="studio">
+      <header class="topbar"><div class="mobile-brand">CLIP<span>.</span></div><div class="crumb">Workspace <span>/</span> Studio</div><div class="top-actions"><span class="status"><i></i> System ready</span><button class="help-btn" id="helpBtn">? Help</button></div></header>
+      <section class="welcome"><div><div class="eyebrow">YOUR AI CLIPPING WORKSPACE</div><h1>Turn long videos into<br><span>scroll-stopping clips.</span></h1><p>Find the big plays, sharp reactions, funny moments, and engaging sections.</p></div><div class="hero-orb"><div class="orb-core">▶</div><span class="orb-ring ring-one"></span><span class="orb-ring ring-two"></span></div></section>
+      <section class="workspace-grid">
+        <div class="panel source-panel"><div class="panel-heading"><div><span class="step">01</span><h2>Add your video</h2><p>Use a video you own or have permission to process.</p></div><span class="panel-icon">↗</span></div>
+          <label class="field-label" for="videoUrl">VIDEO URL</label><div class="url-row"><input id="videoUrl" type="url" placeholder="Paste a supported video URL…"><button id="loadUrl" class="secondary-btn">Load video ↗</button></div>
+          <div class="or-line"><span>OR UPLOAD A FILE</span></div><label class="upload-zone" for="videoFile"><span class="upload-icon">↑</span><strong>Choose a video to upload</strong><small>MP4, MOV, WEBM · Local preview</small><input id="videoFile" type="file" accept="video/mp4,video/quicktime,video/webm"></label>
+          <div class="video-preview hidden" id="previewWrap"><video id="videoPreview" controls playsinline></video><div class="preview-meta"><span id="videoName">Video loaded</span><button id="clearVideo" class="text-btn">Remove</button></div></div>
+        </div>
+        <div class="panel settings-panel"><div class="panel-heading"><div><span class="step">02</span><h2>Find the moments</h2><p>Choose what the clip detector should look for.</p></div><span class="panel-icon">✧</span></div>
+          <div class="setting-label">HIGHLIGHT SIGNALS</div><div class="signal-list">
+            <label class="signal"><input type="checkbox" value="gaming" checked><span class="signal-emoji">🎮</span><span><b>Gaming highlights</b><small>Kills, clutch plays, wins</small></span><i></i></label>
+            <label class="signal"><input type="checkbox" value="reaction" checked><span class="signal-emoji">😲</span><span><b>Reactions & emotion</b><small>Surprise, excitement, laughter</small></span><i></i></label>
+            <label class="signal"><input type="checkbox" value="speech" checked><span class="signal-emoji">🎙️</span><span><b>Engaging speech</b><small>Strong hooks and memorable lines</small></span><i></i></label>
+            <label class="signal"><input type="checkbox" value="action" checked><span class="signal-emoji">⚡</span><span><b>Action & scene changes</b><small>Fast movement and audio peaks</small></span><i></i></label>
+          </div>
+          <div class="settings-row"><label for="clipCount">CLIPS TO FIND</label><select id="clipCount"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></div>
+          <div class="settings-row"><label for="clipLength">CLIP LENGTH</label><select id="clipLength"><option value="30">Up to 30 seconds</option><option value="45" selected>Up to 45 seconds</option><option value="60">Up to 60 seconds</option><option value="90">Up to 90 seconds</option></select></div>
+          <div class="settings-row"><label for="aspect">OUTPUT FORMAT</label><select id="aspect"><option value="9:16" selected>Vertical · 9:16</option><option value="16:9">Landscape · 16:9</option><option value="1:1">Square · 1:1</option></select></div>
+          <button class="primary-btn" id="analyzeBtn">✦ Analyze video <span>→</span></button><p class="fine-print">Analysis runs locally as a demo in this first build. Server-side AI processing is the next integration.</p>
+        </div>
+      </section>
+      <section class="panel manual-panel"><div class="manual-head"><div><span class="step">03</span><h2>Manual clip editor</h2><p>Already know the moment? Set exact timestamps.</p></div><span class="manual-tag">PRECISE CUT</span></div><div class="manual-fields"><div><label for="startTime">START TIME</label><input id="startTime" value="00:00:00" placeholder="HH:MM:SS"></div><div class="time-arrow">→</div><div><label for="endTime">END TIME</label><input id="endTime" value="00:00:30" placeholder="HH:MM:SS"></div><button id="addManual" class="secondary-btn">＋ Add clip</button></div></section>
+      <section class="results-section" id="clips"><div class="results-heading"><div><div class="eyebrow">YOUR OUTPUT</div><h2>Clip queue <span id="clipBadge">0</span></h2></div><button class="secondary-btn" id="exportAll" disabled>↓ Export all</button></div><div class="empty-state" id="emptyState"><div class="empty-icon">▧</div><strong>Your clips will appear here</strong><p>Add a video and run analysis, or create a manual clip above.</p></div><div class="clip-list" id="clipList"></div></section>
+      <footer>CLIP <span>·</span> Make every second count. <small>Only process content you own or are authorized to use.</small></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div><script src="app.js"></script>
+</body></html>
